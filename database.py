@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 
@@ -15,3 +15,17 @@ def get_db():
 		yield db
 	finally:
 		db.close()
+
+
+def ensure_training_session_schema():
+	with engine.begin() as connection:
+		columns = connection.execute(text("PRAGMA table_info(training_sessions)"))
+		column_names = {row[1] for row in columns}
+
+		if "training_type" not in column_names:
+			connection.execute(
+				text(
+					"ALTER TABLE training_sessions "
+					"ADD COLUMN training_type VARCHAR(80)"
+				)
+			)

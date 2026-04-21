@@ -82,6 +82,8 @@ Hyödylliset osoitteet:
 - API juuri: http://127.0.0.1:8000/
 - Swagger UI: http://127.0.0.1:8000/docs
 - ReDoc: http://127.0.0.1:8000/redoc
+- UI listaus: http://127.0.0.1:8000/ui
+- UI syöttö (koira + treeni): http://127.0.0.1:8000/ui/new
 
 ## Testien ajo
 
@@ -141,6 +143,7 @@ Esimerkkirunko (POST /trainings):
   "dog_id": 1,
   "date": "2026-03-10",
   "duration_minutes": 45,
+  "training_type": "Toko",
   "location": "Koulutuskenttä",
   "notes": "Kontaktiharjoituksia"
 }
@@ -152,6 +155,8 @@ Esimerkkirunko (POST /trainings):
   - palauttaa treenit, koiran perustiedot, harjoitusten määrän ja harjoituslistan
 - GET /ui
   - palauttaa HTML-sivun treenien selaamiseen
+- GET /ui/new
+  - palauttaa HTML-sivun koiran ja treenin lisäämiseen
 
 ## Validointi
 
@@ -167,6 +172,7 @@ Treenit:
 - dog_id: pakollinen, kokonaisluku > 0
 - date: pakollinen (ISO-päivämäärä)
 - duration_minutes: pakollinen, kokonaisluku > 0
+- training_type: valinnainen, max 80 merkkiä
 - location: valinnainen, max 150 merkkiä
 - notes: valinnainen
 

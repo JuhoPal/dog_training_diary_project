@@ -72,6 +72,7 @@ def create_training_session(
     dog_id: int,
     training_date: date,
     duration_minutes: int,
+    training_type: str | None = None,
     location: str | None = None,
     notes: str | None = None,
 ):
@@ -83,6 +84,7 @@ def create_training_session(
         dog_id=dog_id,
         date=training_date,
         duration_minutes=duration_minutes,
+        training_type=training_type,
         location=location,
         notes=notes,
     )
@@ -97,12 +99,14 @@ def update_training_session(
     training_id: int,
     training_date: date,
     duration_minutes: int,
+    training_type: str | None = None,
     location: str | None = None,
     notes: str | None = None,
 ):
     session = get_training_session_by_id(db, training_id)
     session.date = training_date
     session.duration_minutes = duration_minutes
+    session.training_type = training_type
     session.location = location
     session.notes = notes
     db.commit()
@@ -145,6 +149,7 @@ def get_training_overview_rows(db: Session):
                 "training_id": session.id,
                 "date": str(session.date),
                 "duration_minutes": session.duration_minutes,
+                "training_type": session.training_type,
                 "location": session.location,
                 "notes": session.notes,
                 "dog": {

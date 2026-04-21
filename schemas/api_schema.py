@@ -27,6 +27,7 @@ class DogResponse(DogBase):
 class TrainingSessionBase(BaseModel):
     date: date
     duration_minutes: int = Field(gt=0)
+    training_type: str | None = Field(default=None, max_length=80)
     location: str | None = Field(default=None, max_length=150)
     notes: str | None = None
 

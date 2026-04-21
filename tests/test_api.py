@@ -49,6 +49,7 @@ def test_create_training_for_existing_dog():
             "dog_id": dog_id,
             "date": "2026-03-10",
             "duration_minutes": 45,
+            "training_type": "Toko",
             "location": "Koulutuskenttä",
             "notes": "Kontaktiharjoituksia",
         },
@@ -56,6 +57,7 @@ def test_create_training_for_existing_dog():
 
     assert training_response.status_code == 201
     assert training_response.json()["dog_id"] == dog_id
+    assert training_response.json()["training_type"] == "Toko"
 
 
 def test_ui_api_lists_trainings_with_dog_data():
@@ -78,7 +80,8 @@ def test_ui_api_lists_trainings_with_dog_data():
             "dog_id": dog_id,
             "date": "2026-04-01",
             "duration_minutes": 30,
-            "location": "Metsa",
+            "training_type": "Agility",
+            "location": "Metsä",
             "notes": "Seuraamisharjoitus",
         },
     )
@@ -91,6 +94,10 @@ def test_ui_api_lists_trainings_with_dog_data():
     assert "trainings" in data
     assert data["count"] >= 1
     assert any(item["dog"]["id"] == dog_id for item in data["trainings"])
+    assert any(
+        item["dog"]["id"] == dog_id and item["training_type"] == "Agility"
+        for item in data["trainings"]
+    )
 
 
 def test_ui_page_returns_html():

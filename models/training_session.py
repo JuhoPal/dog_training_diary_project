@@ -11,6 +11,7 @@ class TrainingSession(Base):
 	dog_id = Column(Integer, ForeignKey("dogs.id", ondelete="CASCADE"), nullable=False)
 	date = Column(Date, nullable=False)
 	duration_minutes = Column(Integer, nullable=False)
+	training_type = Column(String(80), nullable=True)
 	location = Column(String(150), nullable=True)
 	notes = Column(Text, nullable=True)
 
